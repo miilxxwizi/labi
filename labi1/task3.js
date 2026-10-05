@@ -11,9 +11,9 @@ if (clientSpentForAllTime >= 100 && clientSpentForAllTime < 300) {
     discount = 30;
 }
 
-alert(`Вам предоставляется скидка в ${discount}%!`);
+console.log(`Вам предоставляется скидка в ${discount}%!`);
 
 let finalPriceToday = clientSpentToday * (1 - discount / 100);
 clientSpentForAllTime += finalPriceToday;
 
-alert(`Спасибо, \({clientName}! К оплате\){finalPriceToday}\(. За все время в нашем ресторане вы потратили\){clientSpentForAllTime}$.`);
+console.log(`Спасибо, ${clientName}! К оплате ${finalPriceToday}. За все время в нашем ресторане вы потратили ${clientSpentForAllTime}$.`);
