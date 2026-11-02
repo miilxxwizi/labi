@@ -11,16 +11,17 @@ function MyForm() {
     });
     const [isSubmitted, setIsSubmitted] = useState(false);
 
+    function handleChange(event) {
+        const { name, value, type, checked } = event.target;
+
+        setValues({
+            ...values,
+            [name]: type == 'checkbox' ? checked : value
+        });
+    }
+
     function handleSubmit(event) {
         event.preventDefault();
-        let updatedValues = {};
-
-        for (let name in values) {
-            let field = event.target.elements[name];
-            updatedValues[name] = field.type == 'checkbox' ? field.checked : field.value;
-        }
-
-        setValues(updatedValues);
         setIsSubmitted(true);
     }
 
@@ -44,13 +45,13 @@ function MyForm() {
 
     return (
         <form name="myForm" onSubmit={handleSubmit}>
-            <p><label>Email <input type="email" name="email" defaultValue={values.email} /></label></p>
-            <p><label>Password <input type="password" name="password" defaultValue={values.password} /></label></p>
-            <p><label>Address <textarea name="address" defaultValue={values.address} /></label></p>
-            <p><label>City <input type="text" name="city" defaultValue={values.city} /></label></p>
+            <p><label>Email <input type="email" name="email" value={values.email} onChange={handleChange} /></label></p>
+            <p><label>Password <input type="password" name="password" value={values.password} onChange={handleChange} /></label></p>
+            <p><label>Address <textarea name="address" value={values.address} onChange={handleChange} /></label></p>
+            <p><label>City <input type="text" name="city" value={values.city} onChange={handleChange} /></label></p>
             <p>
                 <label>Country
-                    <select name="country" defaultValue={values.country}>
+                    <select name="country" value={values.country} onChange={handleChange}>
                         <option value="">Choose</option>
                         <option value="argentina">Argentina</option>
                         <option value="russia">Russia</option>
@@ -58,7 +59,7 @@ function MyForm() {
                     </select>
                 </label>
             </p>
-            <p><label><input type="checkbox" name="acceptRules" defaultChecked={values.acceptRules} /> Accept Rules</label></p>
+            <p><label><input type="checkbox" name="acceptRules" checked={values.acceptRules} onChange={handleChange} /> Accept Rules</label></p>
             <button type="submit">Sign in</button>
         </form>
     );
